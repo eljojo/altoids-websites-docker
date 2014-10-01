@@ -1,6 +1,10 @@
 FROM debian:wheezy
 
-RUN apt-get update && apt-get install -y curl
+# update everything because of shellshock
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get upgrade -y --force-yes bash
+
+RUN apt-get install -y curl
 RUN echo "deb http://packages.dotdeb.org wheezy all">/etc/apt/sources.list.d/dotdeb.list
 RUN echo "deb-src http://packages.dotdeb.org wheezy all">>/etc/apt/sources.list.d/dotdeb.list
 RUN curl http://www.dotdeb.org/dotdeb.gpg | apt-key add -
